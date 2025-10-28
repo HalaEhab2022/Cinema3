@@ -1,0 +1,48 @@
+﻿@model Movie
+
+<div class="container">
+    <div class="row mb-3 align-items-center my-3">
+        <div class="col-md-6">
+            <h2>Movie Details</h2>
+        </div>
+    </div>
+
+    <div class="row mb-3 align-items-center my-3">
+        <div class="col-md-10">
+            <p style="font-size:30px; font-weight:600">Name : @Model.Name</p>
+            <p style="font-size:30px; font-weight:600">Description : @Model.Description</p>
+            <p style="font-size:30px; font-weight:600">Status : @Model.Status</p>
+            <p style="font-size:30px; font-weight:600">TicketPrice : @Model.TicketPrice</p>
+            <p style="font-size:30px; font-weight:600">Date : @Model.DateTime</p>
+            <p style="font-size:30px; font-weight:600">Category : @Model.category.Name</p>
+            <p style="font-size:30px; font-weight:600">Cinema : @Model.ciinema.Name</p>
+
+            <div class="mb-3">
+                <img id="preview" src="~/images/@Model.MainImg" alt="Current Image" style="max-width: 200px; border:1px solid #ccc; padding:5px;
+                        border-radius:10px;" />
+            </div>
+
+            <div class="row">
+                @if (Model.subImages != null && Model.subImages.Any())
+                {
+                    <div class="d-flex flex-wrap gap-3">
+                        @foreach (var item in Model.subImages)
+                        {
+                             <div class="p-2" style="position: relative;">
+                                <img src="~/images/movie-images/@item.Img"
+                                     alt="Current Image"
+                                     style="width:150px; height:110px; border:1px solid #ccc; padding:5px; border-radius:10px;" />
+                            </div> 
+                        }
+                    </div>
+                }
+                
+            </div> 
+        </div>
+    </div>
+</div>
+
+
+
+
+           

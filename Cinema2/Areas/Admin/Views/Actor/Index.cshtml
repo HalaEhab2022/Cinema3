@@ -1,0 +1,109 @@
+﻿@model IEnumerable<Actor>
+@{
+    const double quantity = 50;
+}
+
+<div class="container">
+
+       @section Scripts{
+        <partial name="_NotificationPartial">
+        } 
+
+        <form class="row g-3 mt-1">
+            <div class="col-auto">
+                <label for="searchName" class="visually-hidden">Name</label>
+                <input type="text" class="form-control" id="searchName" name="Name" placeholder="Name" value="@ViewBag.name">
+            </div>
+
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary mb-3">Search</button>
+            </div>
+        </form>
+ 
+
+
+        <div class="row mb-3 align-items-center my-3">
+            <div class="col-md-6">
+                <h2>All Actors</h2>
+            </div>
+            <div class="col-md-6 text-md-end text-start mt-2 mt-md-0">
+                <a href="/Admin/Actor/Create" class="btn btn-success">Create</a>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-12">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                                
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td scope="row">@item.Id</td>
+                                <td>@item.Name</td>
+  
+                                <td>
+                                    <a href="/Admin/Actor/Edit/@item.Id" type="button" class="btn btn-warning">Edit</a>
+                                    <a href="/Admin/Actor/Delete/@item.Id" type="button" class="btn btn-danger btn-delete">Delete</a>
+
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+
+         <div class="row d-flex ">
+            <nav aria-label="d-flex justify-content-center" style="justify-content:center; display:flex">
+                <ul class="pagination">
+
+                    @if (ViewBag.currentPage > 1)
+                    {
+                        <li class="page-item">
+                            <a href="?page=@(ViewBag.currentPage - 1)&Name=@ViewBag.name&minPrice=@ViewBag.minPrice&maxPrice=@ViewBag.maxPrice&
+                                        categoryId=@ViewBag.categoryId&brandId=@ViewBag.brandId&lessQuantity=@ViewBag.lessQuantity" class="page-link">Previous</a>
+                        </li>
+                    }
+
+                    @for (var i = 1; i <= ViewBag.totalPages; i++)
+                    {
+                        <li class="page-item">
+                            <a class="page-link" href="?page=@i&Name=@ViewBag.name&minPrice=@ViewBag.minPrice&maxPrice=@ViewBag.maxPrice&
+                                            categoryId=@ViewBag.categoryId&brandId=@ViewBag.brandId&lessQuantity=@ViewBag.lessQuantity">@i</a>
+                        </li>
+                    }
+
+                    @if (ViewBag.currentPage < ViewBag.totalPages)
+                    {
+                        <li class="page-item">
+                            <a class="page-link" href="?page=@(ViewBag.currentPage + 1)&Name=@ViewBag.name&minPrice=@ViewBag.minPrice&maxPrice=@ViewBag.maxPrice&
+                                            categoryId=@ViewBag.categoryId&brandId=@ViewBag.brandId&lessQuantity=@ViewBag.lessQuantity">Next</a>
+                        </li>
+                    }
+
+
+                </ul>
+            </nav>
+        </div> 
+        
+
+
+</div>
+
+
+
+
+
+

@@ -1,0 +1,123 @@
+﻿@model IEnumerable<Movie>
+
+
+<div class="container">
+
+    <form class="row g-3 mt-1">
+        <div class="col-auto">
+            <label for="searchName" class="visually-hidden">Name</label>
+            <input type="text" class="form-control" id="searchName" name="Name" placeholder="Name" value="@ViewBag.name">
+        </div>
+
+
+        <div class="col-auto">
+            <select name="categoryId" class="form-select" aria-label="Default select example">
+                <option selected>Category</option>
+                @foreach (var item in ViewBag.categories)
+                {
+                    if (item.Id == ViewBag.categoryId)
+                    {
+                        <option value="@item.Id" selected>@item.Name</option>
+                    }
+                    else
+                    {
+                        <option value="@item.Id">@item.Name</option>
+
+                    }
+
+                }
+            </select>
+        </div>
+
+        <div class="col-auto">
+            <select name="ciinemaId" class="form-select" aria-label="Default select example">
+                <option selected>Cinema</option>
+                @foreach (var item in ViewBag.ciinemas)
+                {
+                    if (item.Id == ViewBag.ciinemaId)
+                    {
+                        <option value="@item.Id" selected>@item.Name</option>
+                    }
+                    else
+                    {
+                        <option value="@item.Id">@item.Name</option>
+
+                    }
+
+                }
+            </select>
+        </div>
+
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary mb-3">Search</button>
+        </div>
+    </form> 
+
+    <div class="row mb-3 align-items-center my-3">
+        <div class="col-md-6">
+            <h2>All Movies</h2>
+        </div>
+    </div> 
+
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card d-flex" style="width: 18rem;">
+                    <img src="~/images/@item.MainImg" class="card-img-top " alt="..." style="height:16rem; ">
+                    <div class="card-body">
+                        <h5 class="name">@item.Name</h5>
+                        <p class="category">Category: @item.category.Name</p>
+                        <p class="ciinema">Cinema: @item.ciinema.Name</p>
+                        <a href="/Customer/Home/Details/@item.Id" type="button" class="btn btn-primary">Details</a>
+     
+                    </div>
+                </div>
+            </div>
+
+        }
+    </div>
+
+    <div class="row d-flex ">
+        <nav aria-label="d-flex justify-content-center" style="justify-content:center; display:flex">
+            <ul class="pagination">
+
+                @if (ViewBag.currentPage > 1)
+                {
+                    <li class="page-item">
+                        <a href="?page=@(ViewBag.currentPage - 1)&Name=@ViewBag.name&minPrice=@ViewBag.minPrice&maxPrice=@ViewBag.maxPrice&
+                                            categoryId=@ViewBag.categoryId&brandId=@ViewBag.brandId&lessQuantity=@ViewBag.lessQuantity" class="page-link">Previous</a>
+                    </li>
+                }
+
+                @for (var i = 1; i <= ViewBag.totalPages; i++)
+                {
+                    <li class="page-item">
+                        <a class="page-link" href="?page=@i&Name=@ViewBag.name&minPrice=@ViewBag.minPrice&maxPrice=@ViewBag.maxPrice&
+                                                categoryId=@ViewBag.categoryId&brandId=@ViewBag.brandId&lessQuantity=@ViewBag.lessQuantity">@i</a>
+                    </li>
+                }
+
+                @if (ViewBag.currentPage < ViewBag.totalPages)
+                {
+                    <li class="page-item">
+                        <a class="page-link" href="?page=@(ViewBag.currentPage + 1)&Name=@ViewBag.name&minPrice=@ViewBag.minPrice&maxPrice=@ViewBag.maxPrice&
+                                                categoryId=@ViewBag.categoryId&brandId=@ViewBag.brandId&lessQuantity=@ViewBag.lessQuantity">Next</a>
+                    </li>
+                }
+
+
+            </ul>
+        </nav>
+    </div>
+
+
+</div>
+
+
+
+
+
+
+
+

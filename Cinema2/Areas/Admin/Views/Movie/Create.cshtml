@@ -1,0 +1,119 @@
+﻿@model CategoriesWithCiinemasVM
+
+
+<div class="container">
+
+    <div class="row mb-3 align-items-center my-3">
+        <div class="col-md-6">
+            <h2>Create New Movie</h2>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-12">
+            <form method="post" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="exampleInputName" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="exampleInputName" name="name">
+                </div>
+
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description</label>
+                    <div class="form-floating">
+                        <textarea class="form-control" placeholder="leave a description here" style="height: 100px;" id="description" name="description"></textarea>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="status" class="form-label">Status</label>
+                    <select class="form-select" id="status" name="status">
+                        <option value="true" selected>Active</option>
+                        <option value="false">InActive</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="ticketPrice" class="form-label">Ticket Price</label>
+                    <input type="text" class="form-control" id="ticketPrice" name="ticketPrice">
+                </div>
+
+                <div class="mb-3">
+                    <label for="img" class="form-label">Main Img</label>
+                    <input type="file" class="form-control" id="img" name="img">
+                </div>
+
+                <div class="mb-3">
+                    <label for="subImgs" class="form-label">Sub Images</label>
+                    <input type="file" class="form-control" id="subImgs" name="subImgs" multiple>
+                </div>
+
+                <div class="mb-3">
+                    <label for="dateTime" class="form-label">Date Time</label>
+                    <input type="datetime" class="form-control" id="dateTime" name="dateTime">
+                </div>
+
+                <div class="mb-3">
+                    <label for="categoryId" class="form-label">Category</label>
+                    <select class="form-select" id="categoryId" name="categoryId">
+                        @foreach (var item in Model.Categories)
+                        {
+                            <option value="@item.Id">@item.Name</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="ciinemaId" class="form-label">Cinema</label>
+                    <select class="form-select" id="ciinemaId" name="ciinemaId">
+                        @foreach (var item in Model.Ciinemas)
+                        {
+                            <option value="@item.Id">@item.Name</option>
+                        }
+                    </select>
+                </div>
+
+
+                @* <div class="mb-3">
+                    <label for="actorId" class="form-label">Actors</label>
+                    <select class="form-select" id="actorId" name="SelectedActorIds[]" multiple>
+                        @foreach (var actor in Model.Actors)
+                        {
+                            <option value="@actor.Id">@actor.Name</option>
+                        }
+                    </select>
+                </div> *@
+
+
+                <button type="submit" class="btn btn-primary">Add</button>
+            </form>
+        </div>
+    </div>
+
+
+
+</div>
+
+<script>
+    const container = document.getElementById("colorContainer");
+    const addBtn = document.getElementById("addButtonColor");
+
+    addBtn.addEventListener('click', ()=> {
+        var colorRow= document.createElement('div')
+        colorRow.className= 'mb-2 d-flex align-item-center'
+        colorRow.innerHTML= `
+         <input type="color" class="form-control form-control-color" id="color" name="colors">
+         <button type="button" class="btn btn-danger btn-sm removeColor">X</button>
+        `
+
+        container.appendChild(colorRow)
+    })
+
+    container.addEventListener('click',(e)=>{
+        if(e.target.classList.contains('removeColor')){
+            e.target.parentElement.remove()
+        }
+    })
+
+</script> 
+
