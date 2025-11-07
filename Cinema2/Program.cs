@@ -1,3 +1,6 @@
+using Cinema2.Configuration;
+using Cinema2.Utilities.DBInitializer;
+
 namespace Cinema2
 {
     public class Program
@@ -17,8 +20,14 @@ namespace Cinema2
 
             builder.Services.RegisterConfig(ConnectionString);
 
+            builder.Services.RegisterMapsterConfig();
 
             var app = builder.Build();
+
+            var scope = app.Services.CreateScope();
+            var service = scope.ServiceProvider.GetService<IDBInitializer>();
+            service!.Initialize();
+
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())

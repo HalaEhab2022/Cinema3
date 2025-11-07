@@ -1,10 +1,12 @@
 using System.Diagnostics;
 using Cinema2.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cinema2.Areas.Admin.Controllers
 {
     [Area("Admin")]
+   // [Authorize(Roles = $"{SD.SUPER_ADMIN_ROLE},{SD.ADMIN_ROLE},{SD.EMPLOYEE_ROLE}")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

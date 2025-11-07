@@ -1,4 +1,6 @@
 ﻿using System.Threading.Tasks;
+using Cinema2.Utilities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
@@ -6,6 +8,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 namespace Cinema2.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = $"{SD.SUPER_ADMIN_ROLE},{SD.ADMIN_ROLE},{SD.EMPLOYEE_ROLE}")]
     public class ActorController : Controller
     {
         private readonly ApplicationDbContext _context;// = new();
@@ -78,6 +81,7 @@ namespace Cinema2.Areas.Admin.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = $"{SD.SUPER_ADMIN_ROLE},{SD.ADMIN_ROLE}")]
         public async Task<IActionResult> Edit(int id, CancellationToken cancellationToken)
         {
             var actor =await _actorRepository.GetOneAsync(e=>e.Id== id);
@@ -87,6 +91,7 @@ namespace Cinema2.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = $"{SD.SUPER_ADMIN_ROLE},{SD.ADMIN_ROLE}")]
         public async Task<IActionResult> Edit(Actor actor, IFormFile? img, CancellationToken cancellationToken)
         {
             var actorInDb =await _actorRepository.GetOneAsync(e=>e.Id == actor.Id , tracked: false);
@@ -132,6 +137,7 @@ namespace Cinema2.Areas.Admin.Controllers
         }
 
 
+        [Authorize(Roles = $"{SD.SUPER_ADMIN_ROLE},{SD.ADMIN_ROLE}")]
         public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
         {
             var actor = await _actorRepository.GetOneAsync(e => e.Id == id, cancellationToken: cancellationToken);

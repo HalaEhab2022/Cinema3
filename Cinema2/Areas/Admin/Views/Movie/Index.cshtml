@@ -120,12 +120,19 @@
                                 <td>@item.category.Name</td>
                                 <td>@item.ciinema.Name</td>
 
-                              
-                                <td>
-                                    <a href="/Admin/Movie/Edit/@item.Id" type="button" class="btn btn-warning">Edit</a>
-                                    <a href="/Admin/Movie/Delete/@item.Id" type="button" class="btn btn-danger btn-delete">Delete</a>
+                            @if (User.IsInRole(SD.SUPER_ADMIN_ROLE) || User.IsInRole(SD.ADMIN_ROLE))
+                            {
+                                    <td>
+                                        <a href="/Admin/Movie/Edit/@item.Id" type="button" class="btn btn-warning">Edit</a>
+                                        <a href="/Admin/Movie/Delete/@item.Id" type="button" class="btn btn-danger btn-delete">Delete</a>
 
-                                </td>
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>No Actions!</td>
+                                }
+                            
                             </tr>
                         }
 
