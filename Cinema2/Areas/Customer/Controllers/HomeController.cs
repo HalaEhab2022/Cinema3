@@ -1,7 +1,21 @@
-﻿using System.Diagnostics;
+﻿
+
+
+
+
+
+
+
+
+
+
+
+
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Cinema2.Areas.Customer.Controllers
 {
@@ -66,7 +80,21 @@ namespace Cinema2.Areas.Customer.Controllers
         {
             var movie = await _movieRepository.GetOneAsync(e => e.Id == id, includes: [e => e.category, e => e.ciinema , e=>e.subImages],tracked:false, cancellationToken: cancellationToken);
 
-            return View(movie);
+            if (movie is null)
+            {
+                return NotFound();
+            }
+            movie.Traffic += 1;
+            _context.SaveChanges();
+
+            var relatedMovies = await _context.Movies.Where(e => e.Name.Contains(movie.Name) && e.Id != movie.Id).OrderBy(e => e.Traffic).Skip(0).Take(4).ToListAsync();
+
+            return View(new MovieWithRelatedVM
+            {
+                Movie = movie,
+                RelatedMovies = relatedMovies
+            });
+
         }
 
         public IActionResult Privacy()

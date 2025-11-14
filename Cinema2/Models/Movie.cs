@@ -8,6 +8,7 @@
         public bool Status { get; set; }
         public decimal TicketPrice { get; set; }
         public string MainImg { get; set; } = string.Empty;
+        public long Traffic { get; set; }
         public DateTime DateTime { get; set; }
         public int CategoryId { get; set; }
         public int CiinemaId { get; set; }

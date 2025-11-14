@@ -1,5 +1,6 @@
 using Cinema2.Configuration;
 using Cinema2.Utilities.DBInitializer;
+using Stripe;
 
 namespace Cinema2
 {
@@ -22,7 +23,15 @@ namespace Cinema2
 
             builder.Services.RegisterMapsterConfig();
 
+            builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("Stripe"));
+
+           
+
             var app = builder.Build();
+
+
+            StripeConfiguration.ApiKey = builder.Configuration["Stripe:SecretKey"];
+
 
             var scope = app.Services.CreateScope();
             var service = scope.ServiceProvider.GetService<IDBInitializer>();

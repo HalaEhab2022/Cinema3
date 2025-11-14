@@ -1,0 +1,67 @@
+﻿@model Promotion
+
+<div class="container">
+
+    <div class="row mb-3 align-items-center my-3">
+        <div class="col-md-6">
+            <h2>Create New Promotion</h2>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <form method="post">
+                <div class="mb-3">
+                    <label for="exampleInputName" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="exampleInputName" asp-for="Code">
+                    <span class="text-danger" asp-validation-for="@Model.Code"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label for="Discount" class="form-label">Discount</label>
+                    <input type="number" class="form-control" id="Discount" asp-for="Discount">
+                    <span class="text-danger" asp-validation-for="@Model.Discount"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label for="ValidTo" class="form-label">ValidTo</label>
+                    <input type="datetime" class="form-control" id="ValidTo" asp-for="ValidTo">
+                    <span class="text-danger" asp-validation-for="@Model.ValidTo"></span>
+                </div>
+
+
+                <div class="mb-3">
+                    <label for="MovieId" class="form-label">Movie</label>
+                    <select class="form-select" id="MovieId" name="MovieId">
+                        @foreach (var item in ViewBag.movies)
+                        {
+                            <option value="@item.Id">@item.Name</option>
+                        }
+                    </select>
+                    <span class="text-danger" asp-validation-for="@Model.MovieId"></span>
+                </div>
+
+
+                @* <div class="mb-3">
+                    <label for="ProductId">Choose Product:</label>
+                    <input list="browsers" name="ProductId" id="ProductId">
+
+                    <datalist id="browsers">
+                            @foreach (var item in ViewBag.products)
+                            {
+                                 <option value="@item.Name"/>
+                            }
+                        </datalist>
+                </div> *@
+
+
+                <button type="submit" class="btn btn-primary">Add</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial">
+}

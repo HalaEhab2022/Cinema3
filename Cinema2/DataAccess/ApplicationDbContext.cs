@@ -1,7 +1,8 @@
-﻿using Cinema2.Models;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Cinema2.DataAccess.EntityConfigirations;
+using Cinema2.Models;
 using Cinema2.ViewModels;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace Cinema2.DataAccess
 {
@@ -18,8 +19,18 @@ namespace Cinema2.DataAccess
         public DbSet<MovieSubImage> MovieSubImages { get; set; }
         public DbSet<ActorMovie> ActorMovies { get; set; }
         public DbSet<ApplicationUserOTP> applicationUserOTPs { get; set; }
-        public DbSet<Cinema2.ViewModels.ValidateOTPVM> ValidateOTPVM { get; set; } = default!;
-        public DbSet<Cinema2.ViewModels.NewPasswordVM> NewPasswordVM { get; set; } = default!;
+        public DbSet<Cart> Carts { get; set; }
+        public DbSet<Promotion> Promotions { get; set; }
+
+
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(CartEntityTypeConfigiration).Assembly);
+
+            base.OnModelCreating(modelBuilder);
+        }
+
 
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //{

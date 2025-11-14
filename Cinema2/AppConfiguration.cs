@@ -17,7 +17,7 @@ namespace Cinema2
                 option.User.RequireUniqueEmail = true;
                 option.Lockout.MaxFailedAccessAttempts = 5;
                 option.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
-                option.SignIn.RequireConfirmedEmail = true;
+                //option.SignIn.RequireConfirmedEmail = true;
             })
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
@@ -38,6 +38,10 @@ namespace Cinema2
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddScoped<IRepository<ApplicationUserOTP>, Repository<ApplicationUserOTP>>();
             services.AddScoped<IDBInitializer, DBInitializer>();
+            services.AddScoped<IRepository<Cart>, Repository<Cart>>();
+            services.AddScoped<IRepository<Promotion>, Repository<Promotion>>();
+
+
 
             services.AddDbContext<ApplicationDbContext>(option =>
             {
